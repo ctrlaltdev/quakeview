@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "quake.ctrlalt.dev",
+  "builds": [
+    { "src": "next.config.js", "use": "@now/next" }
+  ],
+  "alias": ["quake.ctrlalt.dev", "quake.ctrlaltdev.now.sh"]
+}
