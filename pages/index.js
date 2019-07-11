@@ -1,3 +1,4 @@
+import Main from '../layouts/Main'
 import { useState, useEffect } from 'react'
 import Moment from 'moment'
 
@@ -9,7 +10,11 @@ const getEarthQuakes = () => {
 
 const renderQuakes = (quakes = []) => {
     return quakes.map((q, i) => (
-        <div key={`quake-${q.id}`}>{ q.properties.title } - { Moment(q.properties.time).local().format('DD-MM-YY HH:mm') }</div>
+        <li className='Earthquake' key={`quake-${q.id}`}>
+            <div className='Earthquake__Magnitude'>{ q.properties.mag }</div>
+            <div className='Earthquake__Location'>{ q.properties.place }</div>
+            <div className='Earthquake__Time'>{ Moment(q.properties.time).local().format('DD-MM-YY HH:mm') }</div>
+        </li>
     ))
 }
 
@@ -31,9 +36,11 @@ const index = () => {
     }, [])
 
     return (
-        <div>
-            { renderQuakes(quakes) }
-        </div>
+        <Main>
+            <ul className='Earthquakes'>
+                { renderQuakes(quakes) }
+            </ul>
+        </Main>
     )
 }
 
