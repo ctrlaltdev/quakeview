@@ -8,6 +8,9 @@ body
   background-color: white
   color: #222
 
+.App
+  min-height: 100vh
+
 .MainHeader
   background-color: #333333
   color: White
@@ -22,6 +25,11 @@ body
   font-size: 2rem
   text-align: center
   margin-top: 2rem
+
+.NoEarthquakes
+  padding: 2rem
+  font-size: 4rem
+  height: 80vh
 
 .Earthquakes
   list-style: none
@@ -45,14 +53,26 @@ body
     line-height: 6rem
     margin-right: 1rem
     background-color: Gray
+    font-weight: bold
     color: White
     text-align: center
+    &__Overlay
+      display: block
+      background-color: rgba(0, 0, 0, 0.2)
 
   &__Location
-    flex: 1 0 auto
+    flex: 1 1 auto
     padding: 1rem
 
   &__Time
     flex: 0 0 auto
     padding: 1rem
     text-align: right
+    &__Absolute
+      display: none
+    &__Relative
+      display: inline
+    &:hover &__Absolute
+      display: inline
+    &:hover &__Relative
+      display: none
