@@ -12,7 +12,7 @@ const MainHead = ({ title }) => (
         <meta name="theme-color" content="#222222" />
         <link rel="manifest" href="https://quake.ctrlalt.dev/static/manifest.json" />
         <link rel="shortcut icon" href="https://quake.ctrlalt.dev/static/favicon.png" />
-        <title>Quake View - { title }</title>
+        <title>{ `Quake View${ title ? ` - ${ title }` : '' }` }</title>
     </Head>
 )
 

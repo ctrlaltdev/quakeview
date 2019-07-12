@@ -1,0 +1,3 @@
+const magnitudeColoring = (magnitude) => {
+    
+}

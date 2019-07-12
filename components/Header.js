@@ -1,6 +1,6 @@
 const Header = () => {
     return (
-        <header>
+        <header className='MainHeader'>
             Quake View
         </header>
     )

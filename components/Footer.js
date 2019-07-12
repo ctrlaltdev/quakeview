@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer>
+        <footer className='MainFooter'>
             Quake View
         </footer>
     )

@@ -1,6 +1,6 @@
 {
-  "short_name": "CTRLALTDEV",
-  "name": "CTRL ALT DEV",
+  "short_name": "QuakeView",
+  "name": "Earthquake Viewer",
   "icons": [
     {
       "src": "icon.ico",
