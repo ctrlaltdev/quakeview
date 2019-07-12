@@ -76,3 +76,23 @@ body
       display: inline
     &:hover &__Relative
       display: none
+
+.Filters
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-between
+  padding: 1rem
+  &__Timeframe,
+  &__Threshold
+    flex: 0 0 auto
+    input[type='radio']
+      vertical-align: text-bottom
+    label
+      font-size: 2rem
+  &__Filter
+    display: inline-block
+    margin-right: 2rem
+    &:hover
+      cursor: pointer
+    &:last-of-type
+      margin-right: unset
