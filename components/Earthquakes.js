@@ -8,9 +8,9 @@ export const getEarthQuakes = (timeframe = 'hour', threshold = 'all') => {
   })
 }
 
-export const renderQuakes = (quakes = [], userLocation = null) => {
+export const renderQuakes = (quakes = [], userLocation = null, openMap = null) => {
   return quakes.map((q, i) => (
-    <li className='Earthquake' key={`quake-${q.id}`}>
+    <li className='Earthquake' key={`quake-${q.id}`} onClick={() => { openMap({ lat: q.geometry.coordinates[1], lon: q.geometry.coordinates[0] }, q.properties.mag) }}>
       <div className='Earthquake__Magnitude' style={{ backgroundColor: magnitudeColoring(q.properties.mag) }}><span className='Earthquake__Magnitude__Overlay'>{ q.properties.mag }</span></div>
       <div className='Earthquake__Location'>
         { q.properties.place }

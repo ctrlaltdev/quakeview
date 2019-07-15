@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <footer className='MainFooter'>
-            Quake View
+            Quake View - Thanks to USGS data
         </footer>
     )
 }

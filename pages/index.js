@@ -6,6 +6,7 @@ import { newNotification } from '../utils/notifications'
 
 import { getEarthQuakes, renderQuakes, renderNoQuakes } from '../components/Earthquakes'
 import Filters from '../components/Filters'
+import MapContainer from '../components/MapContainer'
 
 const index = () => {
   const [quakes, updateQuakes] = useState([])
@@ -13,6 +14,7 @@ const index = () => {
   const [threshold, updateThreshold] = useState('4.5')
   const [userLocation, updateUserLocation] = useState(null)
   const [canNotify, updateCanNotify] = useState(false)
+  const [map, updateMap] = useState({ isOpen: false })
 
   let notifications = []
 
@@ -52,6 +54,14 @@ const index = () => {
     return () => clearInterval(interval)
   }, [timeframe, threshold, canNotify])
 
+  openMap = (coords, quake) => {
+    updateMap({ ...coords, ...quake, isOpen: true })
+  }
+
+  closeMap = () => {
+    updateMap({ isOpen: false })
+  }
+
   const changeTimeframe = (e) => {
     updateTimeframe(e.target.value)
   }
@@ -85,9 +95,12 @@ const index = () => {
           <Filters prefix='magnitude' selected={threshold} onChange={changeThreshold} items={thresholdOptions} />
         </div>
       </div>
+
+      { map.isOpen ? <MapContainer coords={map.coords} quake={map.quake} closeMap={closeMap} /> : null }
+
       { quakes.length > 0 ? 
         <ul className='Earthquakes'>
-          { renderQuakes(quakes, userLocation) }
+          { renderQuakes(quakes, userLocation, openMap) }
         </ul> : renderNoQuakes()
       }
     </Main>
