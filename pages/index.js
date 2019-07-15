@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 import { getGeolocation } from '../utils/getGeolocation'
 import { newNotification } from '../utils/notifications'
+import { autoUnit } from '../utils/locale'
 
 import { getEarthQuakes, renderQuakes, renderNoQuakes } from '../components/Earthquakes'
 import Filters from '../components/Filters'
@@ -12,10 +13,10 @@ const index = () => {
   const [quakes, updateQuakes] = useState([])
   const [timeframe, updateTimeframe] = useState('day')
   const [threshold, updateThreshold] = useState('4.5')
-  const [userLocation, updateUserLocation] = useState(null)
+  const [user, updateUser] = useState({ location: null, unit: 'km', userSelected: false })
   const [canNotify, updateCanNotify] = useState(false)
-  const [map, updateMap] = useState({ isOpen: false })
-
+  // const [map, updateMap] = useState({ isOpen: false })
+  
   let notifications = []
 
   useEffect(() => {
@@ -24,7 +25,11 @@ const index = () => {
 
     getGeolocation()
       .then(location => {
-        updateUserLocation(location)
+        if (!user.userSelected) {
+          updateUser({ ...user, location: location, unit: autoUnit() })
+        } else {
+          updateUser({ ...user, location: location })
+        }
       })
 
     if (!canNotify && !deniedNotify) {
@@ -54,11 +59,11 @@ const index = () => {
     return () => clearInterval(interval)
   }, [timeframe, threshold, canNotify])
 
-  openMap = (coords, quake) => {
-    updateMap({ ...coords, ...quake, isOpen: true })
+  const openMap = (coords, quake) => {
+    // updateMap({ ...coords, ...quake, isOpen: true })
   }
 
-  closeMap = () => {
+  const closeMap = () => {
     updateMap({ isOpen: false })
   }
 
@@ -68,6 +73,10 @@ const index = () => {
 
   const changeThreshold = (e) => {
     updateThreshold(e.target.value)
+  }
+
+  const changeUnit = (e) => {
+    updateUser({ ...user, unit: e.target.value, userSelected: true })
   }
 
   const timeOptions = [
@@ -94,13 +103,16 @@ const index = () => {
         <div className='Filters__Threshold'>
           <Filters prefix='magnitude' selected={threshold} onChange={changeThreshold} items={thresholdOptions} />
         </div>
+        <div className='Filters__Unit'>
+          <Filters prefix='unit' selected={user.unit} onChange={changeUnit} items={[{ value: 'km', label: 'Metric' }, { value: 'mi', label: 'Imperial' }]} />
+        </div>
       </div>
 
-      { map.isOpen ? <MapContainer coords={map.coords} quake={map.quake} closeMap={closeMap} /> : null }
+      {/* { map.isOpen ? <MapContainer coords={map.coords} quake={map.quake} closeMap={closeMap} /> : null } */}
 
       { quakes.length > 0 ? 
         <ul className='Earthquakes'>
-          { renderQuakes(quakes, userLocation, openMap) }
+          { renderQuakes(quakes, user, openMap) }
         </ul> : renderNoQuakes()
       }
     </Main>
