@@ -1,0 +1,3 @@
+quake view does not collect or share your information
+quake view does not use cookies
+quake view does not keep your geolocation, it never leaves your device
